@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions/actionTypes.jsx';
+import actionTypes from '../actions/actionTypes.jsx';
 
 function quests(state = [], action) {
   let newState
@@ -27,7 +27,7 @@ function quests(state = [], action) {
       ];
     case actionTypes.ADD_QUEST:
       return [ action.newQuest, ...state ];
-    case "RECEIVE_QUESTS":
+    case actionTypes.RECEIVE_QUESTS:
       return action.quests.reverse();
     default:
       return state;

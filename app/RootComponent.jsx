@@ -21,7 +21,7 @@ const RootComponent = React.createClass({
       <ScrollView>
         <View style={styles.container} ref="RootComponent">
             {this.props.quests.map( (quest) => {
-              return <Text style={styles.welcome}>{quest.text}</Text>
+              return <Text key={quest.id} style={styles.welcome}>{quest.text}</Text>
             })}
           <Text style={styles.instructions}>
             To get started, edit index.android.js
@@ -40,6 +40,7 @@ var styles = StyleSheet.create({
     // flex: 1,
     // justifyContent: 'center',
     // alignItems: 'center',
+    padding: 3,
     backgroundColor: '#F5FCFF',
   },
   welcome: {

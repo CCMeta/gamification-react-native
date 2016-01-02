@@ -1,7 +1,7 @@
 import request from 'superagent';
 // import { normalize, Schema, arrayOf } from 'normalizr';
 
-import * as actionTypes from './actionTypes.jsx';
+import actionTypes from './actionTypes.jsx';
 
 export function putCurrentNavType(){
     return {
@@ -112,7 +112,7 @@ function requestQuests() {
 
 function receiveQuests(quests) {
   return {
-    type: "RECEIVE_QUESTS",
+    type: actionTypes.RECEIVE_QUESTS,
     quests: quests
   }
 }
