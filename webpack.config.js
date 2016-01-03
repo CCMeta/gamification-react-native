@@ -23,12 +23,13 @@ var config = {
   module: {
     loaders: [{
       test: /\.js|jsx$/,
-      include: [
-        path.resolve(__dirname, 'app'),
-        path.resolve(__dirname, 'node_modules/react-native-icons'),
-        path.resolve(__dirname, 'node_modules/react-native/Libraries/react-native'),
-        path.resolve(__dirname, 'node_modules/react-native-navbar'),
-      ],
+      // include: [
+      //   path.resolve(__dirname, 'app'),
+      //   path.resolve(__dirname, 'node_modules/react-native-icons'),
+      //   path.resolve(__dirname, 'node_modules/react-native-material-kit'),
+      //   path.resolve(__dirname, 'node_modules/react-native/Libraries/react-native'),
+      //   path.resolve(__dirname, 'node_modules/react-native-navbar'),
+      // ],
       loader: 'babel',
       query: {
         presets: ['es2015', 'stage-0', 'react'],

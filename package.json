@@ -19,6 +19,7 @@
     "eslint-plugin-react": "^3.2.2",
     "react-native": "^0.17.0",
     "react-native-icons": "^0.7.0",
+    "react-native-material-kit": "^0.2.4",
     "react-transform-hmr": "^1.0.1",
     "superagent": "^1.6.1",
     "webpack": "^1.12.9",

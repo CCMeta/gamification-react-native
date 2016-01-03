@@ -1,10 +1,21 @@
 import React from 'react-native';
 import {connect} from 'react-redux';
-
-// import { Icon, TabBarIOS, Spinner} from 'react-native-icons/index.ios';
-var {Icon} = require('react-native-icons/index.ios')
-
 import * as actions from './actions/actionsCreators.jsx';
+
+const MK = require('react-native-material-kit');
+// import { Icon, TabBarIOS, Spinner} from 'react-native-icons/index.ios';
+var {Icon} = require('react-native-icons/index.ios');
+const {
+  MKCardStyles,
+  MKButton
+} = MK;
+const ColoredRaisedButton = MKButton.coloredButton()
+  .withText('BUTTON')
+  .withOnPress(() => {
+    console.log("Hi, it's a colored button!");
+  })
+  .build();
+
 
 const {
   StyleSheet,
@@ -30,6 +41,7 @@ const RootComponent = React.createClass({
           </View>
         </ScrollView>
         <View style={styles.info}>
+          <ColoredRaisedButton/>
           <Icon
             name='ion|beer'
             size={150}
