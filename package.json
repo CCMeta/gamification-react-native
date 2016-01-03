@@ -7,13 +7,18 @@
     "bundle": "rnws bundle",
     "dev": "rnws start"
   },
+  "main": "index",
   "dependencies": {
     "babel-core": "^6.3.13",
     "babel-loader": "^6.2.0",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
+    "eslint": "^1.1.0",
+    "eslint-loader": "^1.0.0",
+    "eslint-plugin-react": "^3.2.2",
     "react-native": "^0.17.0",
+    "react-native-icons": "^0.7.0",
     "react-transform-hmr": "^1.0.1",
     "superagent": "^1.6.1",
     "webpack": "^1.12.9",

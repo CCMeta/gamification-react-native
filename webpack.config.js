@@ -6,7 +6,7 @@ var webpack = require('webpack');
 
 var config = {
 
-  debug: false,
+  debug: true,
 
   devtool: 'source-map',
 
@@ -25,6 +25,7 @@ var config = {
       test: /\.js|jsx$/,
       include: [
         path.resolve(__dirname, 'app'),
+        path.resolve(__dirname, 'node_modules/react-native-icons'),
         path.resolve(__dirname, 'node_modules/react-native/Libraries/react-native'),
         path.resolve(__dirname, 'node_modules/react-native-navbar'),
       ],
@@ -36,7 +37,9 @@ var config = {
   },
 
   plugins: [],
-
+  eslint: {
+    configFile: '.eslintrc'
+  },
 };
 
 // Hot loader
