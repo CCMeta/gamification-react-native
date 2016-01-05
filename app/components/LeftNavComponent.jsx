@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { Icon } from 'react-native-icons/index.ios';
 import MaterialKit from 'react-native-material-kit';
 
+import InboxContainer from '../containers/InboxContainer.jsx';
+import TodayContainer from '../containers/TodayContainer.jsx';
+
 const {
   ListView,
   StyleSheet,
@@ -20,8 +23,8 @@ const {
 } = MaterialKit;
 
 const leftNavData = [
-  {name: "today",title:"今日待办",icon:"material|play-circle-outline",navKey:1},
-  {name: "inbox",title:"收集箱",icon:"material|inbox",navKey:0},
+  {name: "today",title:"今日待办",icon:"material|play-circle-outline",navKey:1,component:TodayContainer},
+  {name: "inbox",title:"收集箱",icon:"material|inbox",navKey:0,component:InboxContainer},
 ];
 
 
@@ -32,7 +35,7 @@ const LeftNavComponent = React.createClass({
       dataSource: ds.cloneWithRows(leftNavData),
     };
   },
-  _pressButton: function() {
+  _pressButton: function(leftNav) {
     const { navigator } = this.props;
     //或者写成 const navigator = this.props.navigator;
     //为什么这里可以取得 props.navigator?请看上文:
@@ -40,16 +43,18 @@ const LeftNavComponent = React.createClass({
     //这里传递了navigator作为props
     if(navigator) {
       navigator.push({
-        name: 'SecondPageComponent',
-        component: SecondPageComponent,
+        name: leftNav.name,
+        component: leftNav.component,
       })
+    }else{
+      navigator.pop();
     }
   },
   renderRow(rowData){
     return (
       <View>
         <TouchableOpacity
-          onPress={this._pressButton}
+          onPress={ () => this._pressButton(rowData)}
         >
           <View style={styles.themeItem}>
             <Icon
