@@ -68,7 +68,7 @@ const RootComponent = React.createClass({
         <Drawer
           type="overlay"
           content={
-            <LeftNavComponent/>
+            <LeftNavComponent navigator={global.nav}/>
           }
           tapToClose={true}
           openDrawerOffset={0.2}
@@ -81,6 +81,7 @@ const RootComponent = React.createClass({
           })}
           >
           <Navigator
+            ref={nav => global.nav = nav}
             style={{paddingLeft: 0, paddingRight: 0}}
             initialRoute={{ name: defaultName, component: defaultComponent }}
             configureScene={() => {
