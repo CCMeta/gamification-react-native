@@ -49,7 +49,7 @@ const TodayContainer = React.createClass({
     },
     handleRenderRow: function(rowData){
       return (
-        <View style={{flexDirection: 'row', alignItems:"center", height: 60, borderBottomWidth: 1}}>
+        <View key={rowData.id} style={{flexDirection: 'row', alignItems:"center", height: 60, borderBottomWidth: 1}}>
           <MKIconToggle
             checked={false}
             onCheckedChange={()=>{}}

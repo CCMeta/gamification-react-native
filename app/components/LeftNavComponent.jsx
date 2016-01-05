@@ -42,10 +42,7 @@ const LeftNavComponent = React.createClass({
     //<Component {...route.params} navigator={navigator} />
     //这里传递了navigator作为props
     if(navigator) {
-      navigator.push({
-        name: leftNav.name,
-        component: leftNav.component,
-      })
+      navigator.push({...leftNav});
     }else{
       navigator.pop();
     }
