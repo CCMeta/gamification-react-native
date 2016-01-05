@@ -49,30 +49,45 @@ const TodayContainer = React.createClass({
     },
     handleRenderRow: function(rowData){
       return (
-        <View style={{flexDirection: 'row', alignItems:"center", height: 60, borderWidth: 1}}>
+        <View style={{flexDirection: 'row', alignItems:"center", height: 60, borderBottomWidth: 1}}>
           <MKIconToggle
             checked={false}
             onCheckedChange={()=>{}}
             onPress={()=>{}}
-            style={{width: 30,height: 30,borderWidth:1,borderRadius:500,margin:15}}
+            style={{width: 30,height: 30, borderWidth: 2, borderRadius:100, margin:15}}
             >
-            <Text
+            <View
+              state_checked={false}
               pointerEvents="none"
-              >卐</Text>
-            <Text
+              >
+              <Icon
+                name='material|close'
+                size={30}
+                color='#01BAD2'
+                style={{width: 30, height: 30}}
+                />
+            </View>
+            <View
               state_checked={true}
               pointerEvents="none"
-              >卍</Text>
+              >
+              <Icon
+                name='material|check'
+                size={30}
+                color='#01BAD2'
+                style={{width: 30, height: 30}}
+                />
+            </View>
           </MKIconToggle>
           <Text style={{fontSize: 20}}>
-            {"\0\0" + rowData.text}
+            {rowData.text}
           </Text>
         </View>
       )
     },
     render: function() {
       return (
-        <View style={{flex:1, marginTop:60}}>
+        <View style={{ flex: 1, marginTop: 60}}>
           <ListView
             dataSource={this.state.dataSource.cloneWithRows(this.props.quests)}
             renderRow={this.handleRenderRow}
@@ -108,8 +123,9 @@ var styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
+  let quests = state.quests.filter((quest) => quest.type === 1 && quest.state === 0);
   return {
-      quests: state.quests
+      quests
   }
 }
 

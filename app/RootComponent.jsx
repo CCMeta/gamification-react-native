@@ -1,9 +1,10 @@
 import React from 'react-native';
 import {connect} from 'react-redux';
 import * as actions from './actions/actionsCreators.jsx';
+import Drawer from 'react-native-drawer';
 
 import TodayContainer from './containers/TodayContainer.jsx';
-var Drawer = require('react-native-drawer');
+import LeftNavComponent from './components/LeftNavComponent.jsx';
 
 const {
   Navigator,
@@ -57,35 +58,28 @@ const RootComponent = React.createClass({
     };// end of routeMapper
       var defaultName = 'today';
       var defaultComponent = TodayContainer;
-      var drawerStyles = {
-        backgroundColor: '#FFFFFF',
-        borderColor: '#000000',
-        borderWidth: 1,
-        // shadowOpacity: 0.8,
-        // shadowRadius: 3,
-        marginTop: 20
-      };
-      var mainStyles = {};
+      var drawerStyles =
+      {
+        drawer: {shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3, marginTop: 20},
+        main: {}
+      }
       return (
 
         <Drawer
           type="overlay"
           content={
-            <Text>我是控制面板</Text>
+            <LeftNavComponent/>
           }
           tapToClose={true}
-          openDrawerOffset={0.5}
-          panCloseMask={0.5}
+          openDrawerOffset={0.2}
+          // 20% gap on the right side of drawer
+          panCloseMask={0.2}
           closedDrawerOffset={-3}
-          styles={{
-            drawer: drawerStyles,
-            main: mainStyles
-          }}
+          styles={drawerStyles}
           tweenHandler={(ratio) => ({
             main: { opacity:(2-ratio)/2 }
           })}
           >
-
           <Navigator
             style={{paddingLeft: 0, paddingRight: 0}}
             initialRoute={{ name: defaultName, component: defaultComponent }}
@@ -101,13 +95,13 @@ const RootComponent = React.createClass({
             renderScene={(route, navigator) => {
               let Component = route.component;
               if(route.component) {
-                return <Component
-                  {...route.params}
-                  navigator={navigator} />
+                return (
+                  <Component/>
+                )
               }
             }} />
-
           </Drawer>
+
         );
   }
 });
@@ -115,8 +109,6 @@ const RootComponent = React.createClass({
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
 

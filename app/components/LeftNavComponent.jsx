@@ -1,64 +1,99 @@
-import React, { PropTypes } from 'react';
-import {connect} from 'react-redux';
-import {Link} from 'react-router'
-import { Menu, Icon, Switch, Tag } from 'antd';
-const SubMenu = Menu.SubMenu;
+import React from 'react-native';
+import { connect } from 'react-redux';
+import { Icon } from 'react-native-icons/index.ios';
+import MaterialKit from 'react-native-material-kit';
+
+const {
+  ListView,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  TouchableOpacity,
+  TouchableHighlight
+} = React;
+
+const {
+  MKIconToggle,
+  MKCardStyles,
+  MKButton
+} = MaterialKit;
+
+const leftNavData = [
+  {name: "today",title:"今日待办",icon:"material|play-circle-outline",navKey:1},
+  {name: "inbox",title:"收集箱",icon:"material|inbox",navKey:0},
+];
+
 
 const LeftNavComponent = React.createClass({
+  getInitialState: function() {
+    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    return {
+      dataSource: ds.cloneWithRows(leftNavData),
+    };
+  },
+  _pressButton: function() {
+    const { navigator } = this.props;
+    //或者写成 const navigator = this.props.navigator;
+    //为什么这里可以取得 props.navigator?请看上文:
+    //<Component {...route.params} navigator={navigator} />
+    //这里传递了navigator作为props
+    if(navigator) {
+      navigator.push({
+        name: 'SecondPageComponent',
+        component: SecondPageComponent,
+      })
+    }
+  },
+  renderRow(rowData){
+    return (
+      <View>
+        <TouchableOpacity
+          onPress={this._pressButton}
+        >
+          <View style={styles.themeItem}>
+            <Icon
+              name={rowData.icon}
+              size={20}
+              color='#01BAD2'
+              style={{width: 20, height: 20}}/>
+            <Text style={styles.themeName}>
+              {rowData.title}
+            </Text>
+            <LeftNavComponentLengthSpan {...this.props} navKey={rowData.navKey}/>
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+  },
+  renderHeader(){
+      return (
+        <View>
+        </View>
+      )
+  },
+  dataSource(){
+    let dataSource = [];
+    leftNavData.map((leftNav,index) => {
+      dataSource.push({...leftNav});
+    })
+    return dataSource;
+  },
     render () {
-        return (
-            <Menu
-                style={{width:"auto"}}
-                defaultOpenKeys={[]}
-                selectedKeys={[this.props.current.navType.toString()]}
-                mode="inline">
-                <Menu.Item key="0">
-                    <Link to="/inbox"><p><Icon type="inbox" />收集箱
-                    <LeftNavComponentLengthSpan navKey="0" quests={this.props.quests}/></p></Link>
-                </Menu.Item>
-                <Menu.Item key="1">
-                    <Link to="/today"><p><Icon type="play-circle-o" />今日待办
-                        <LeftNavComponentLengthSpan navKey="1" quests={this.props.quests}/></p></Link>
-                </Menu.Item>
-                <Menu.Item key="2">
-                    <Link to="/next"><p><Icon type="star-o" />下一步行动
-                        <LeftNavComponentLengthSpan navKey="2" quests={this.props.quests}/></p></Link>
-                </Menu.Item>
-                <Menu.Item key="3">
-                    <Link to="/waiting"><p><Icon type="pause-circle-o" />等待中
-                        <LeftNavComponentLengthSpan navKey="3" quests={this.props.quests}/></p></Link>
-                </Menu.Item>
-                <Menu.Item key="4">
-                    <Link to="/schedule"><p><Icon type="calendar" />日程表
-                        <LeftNavComponentLengthSpan navKey="4" schedules={this.props.schedules}/></p></Link>
-                </Menu.Item>
-                <Menu.Item disabled={true}/>
-                <Menu.Item key="5">
-                    <Link to="/done"><p><Icon type="check-circle-o" />已完成
-                        <LeftNavComponentLengthSpan navKey="5" quests={this.props.quests}/></p></Link>
-                </Menu.Item>
-                <Menu.Item key="6">
-                    <Link to="/trash"><p><Icon type="delete" />回收箱
-                        <LeftNavComponentLengthSpan navKey="6" quests={this.props.quests}/></p></Link>
-                </Menu.Item>
-                    <Menu.Item disabled={true}/>
-
-                <Menu.Item key="7">
-                  <Link to="/tree"><p><Icon type="bars" />任务树
-                      </p></Link>
-                </Menu.Item>
-                    <Menu.Item disabled={true}/>
-
-                <Menu.Item key="9">
-                    <Link to="/shop"><p><Icon type="smile" />奖励池
-                        </p></Link>
-                </Menu.Item>
-                <Menu.Item key="10"><Icon type="shopping-cart" />道具池</Menu.Item>
-                <Menu.Item key="11">
-                    <Link to="/chart"><p><Icon type="bar-chart" />数据统计
-                        </p></Link>
-                </Menu.Item>
-            </Menu>
+      return (
+        <View style={styles.container}>
+          <ListView
+            ref="themeslistview"
+            dataSource={this.state.dataSource.cloneWithRows(this.dataSource())}
+            renderRow={this.renderRow}
+            automaticallyAdjustContentInsets={false}
+            keyboardDismissMode="on-drag"
+            keyboardShouldPersistTaps={true}
+            showsVerticalScrollIndicator={false}
+            renderHeader={this.renderHeader}
+            style={{flex:1, backgroundColor: 'white'}}
+          />
+        </View>
         )
     }
 })
@@ -92,17 +127,82 @@ const LeftNavComponentLengthSpan = React.createClass({
     },
     render () {
         return (
-            <span style={{float:"right"}}>{this.handleLength(this.props.navKey)}</span>
+          <Text style={{fontSize: 16}}>
+            {this.handleLength(this.props.navKey)}
+          </Text>
         )
     }
 })
 
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FAFAFA',
+  },
+  header: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  userInfo: {
+    flex: 1,
+    backgroundColor: '#00a2ed',
+  },
+  row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  menuContainer: {
+    flex:1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 8,
+  },
+  menuText: {
+    fontSize: 14,
+    color: 'white',
+  },
+  homeTheme: {
+    fontSize: 16,
+    marginLeft: 16,
+    color: '#00a2ed'
+  },
+  themeItem: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 16,
+    borderBottomWidth: 1,
+  },
+  themeName: {
+    flex: 1,
+    fontSize: 16,
+    marginLeft: 10,
+  },
+  themeIndicate: {
+    marginRight: 16,
+    width: 16,
+    height: 16,
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#eeeeee',
+  },
+  scrollSpinner: {
+    marginVertical: 20,
+  },
+  rowSeparator: {
+    backgroundColor: 'rgba(0, 0, 0, 0.1)',
+    height: 1,
+    marginLeft: 4,
+  },
+  rowSeparatorHide: {
+    opacity: 0.0,
+  },
+});
 
 function mapStateToProps(state) {
   return {
-      quests: state.quests,
-      schedules: state.schedules,
-      current: state.current
+      quests: state.quests
   }
 }
 
