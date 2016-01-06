@@ -5,6 +5,9 @@ import MaterialKit from 'react-native-material-kit';
 
 import InboxContainer from '../containers/InboxContainer.jsx';
 import TodayContainer from '../containers/TodayContainer.jsx';
+import NextContainer from '../containers/NextContainer.jsx';
+import WaitingContainer from '../containers/WaitingContainer.jsx';
+import DoneContainer from '../containers/DoneContainer.jsx';
 
 const {
   ListView,
@@ -23,10 +26,14 @@ const {
 } = MaterialKit;
 
 const leftNavData = [
-  {name: "today",title:"今日待办",icon:"material|play-circle-outline",navKey:1,component:TodayContainer},
-  {name: "inbox",title:"收集箱",icon:"material|inbox",navKey:0,component:InboxContainer},
+  {name: "inbox", title:"收集箱", icon:"material|inbox", navKey:0, component:InboxContainer},
+  {name: "today", title:"今日待办", icon:"material|play-circle-outline", navKey:1, component:TodayContainer},
+  {name: "next", title:"下一步行动", icon:"material|star-outline", navKey:2, component:NextContainer},
+  {name: "waiting", title:"等待中", icon:"material|pause-circle-outline", navKey:3, component:WaitingContainer},
+  {name: "schedule", title:"日程表", icon:"material|calendar-note", navKey:4, component:InboxContainer},
+  {name: "done", title:"已完成", icon:"material|check-circle", navKey:5, component:DoneContainer},
+  {name: "trash", title:"垃圾箱", icon:"material|delete", navKey:6, component:InboxContainer},
 ];
-
 
 const LeftNavComponent = React.createClass({
   getInitialState: function() {
@@ -42,6 +49,7 @@ const LeftNavComponent = React.createClass({
     //<Component {...route.params} navigator={navigator} />
     //这里传递了navigator作为props
     if(navigator) {
+      global.drawer.close();
       navigator.push({...leftNav});
     }else{
       navigator.pop();
@@ -102,14 +110,14 @@ const LeftNavComponent = React.createClass({
 
 const LeftNavComponentLengthSpan = React.createClass({
     handleLength (key) {
-        let navCount;
+        let navCount = 0;
         switch (parseInt(key)) {
             case 4:
-                navCount = this.props.schedules.filter((schedule) => {
-                    if(schedule.state === 0){
-                        return schedule
-                    }
-                });;
+                    // navCount = this.props.schedules.filter((schedule) => {
+                    //     if(schedule.state === 0){
+                    //         return schedule
+                    //     }
+                    // });;
                 break;
             case 5:
                 navCount = this.props.quests.filter((quest) => {
