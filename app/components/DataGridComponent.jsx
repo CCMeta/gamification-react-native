@@ -13,7 +13,6 @@ const {
 
 const {
   MKIconToggle,
-  MKCardStyles,
   MKButton
 } = MaterialKit;
 
@@ -44,7 +43,7 @@ const DataGridComponent = React.createClass({
             checked={checked}
             onCheckedChange={()=>{}}
             onPress={()=>{}}
-            style={{width: 30,height: 30, borderWidth: 2, borderRadius:100, margin:15}}
+            style={{width: 30,height: 30, borderWidth: 2, borderRadius:100, margin:15,}}
             >
             <View
               state_checked={false}
@@ -69,8 +68,13 @@ const DataGridComponent = React.createClass({
                 />
             </View>
           </MKIconToggle>
-          <Text style={{fontSize: 20}}>
+          <Text numberOfLines={1} style={{fontSize: 20,flex:1}}>
             {rowData.text}
+          </Text>
+          <Text
+            pointerEvents="none"
+            style={{color: '#FAC450', fontWeight: 'bold',justifyContent:"center",margin:15,}}>
+            {"$" + rowData.gold}
           </Text>
         </View>
       )
