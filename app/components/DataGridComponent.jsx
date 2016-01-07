@@ -41,7 +41,13 @@ const DataGridComponent = React.createClass({
         <View style={{flexDirection: 'row', alignItems:"center", height: 60, borderBottomWidth: 1}}>
           <MKIconToggle
             checked={checked}
-            onCheckedChange={()=>{}}
+            onCheckedChange={(selected) => {
+              if(selected.checked){
+                this.props.onCompleteQuest(rowData.id);
+              } else {
+                this.props.onCancelCompleteQuest(rowData.id);
+              }
+            }}
             onPress={()=>{}}
             style={{width: 30,height: 30, borderWidth: 2, borderRadius:100, margin:15,}}
             >
