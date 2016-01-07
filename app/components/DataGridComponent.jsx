@@ -39,41 +39,25 @@ const DataGridComponent = React.createClass({
       let checked = (rowData.state === 1);
       return (
         <View style={{flexDirection: 'row', alignItems:"center", height: 60, borderBottomWidth: 1}}>
-          <MKIconToggle
-            checked={checked}
-            onCheckedChange={(selected) => {
-              if(selected.checked){
+          <MKButton
+            style={{width: 30,height: 30, margin:15, justifyContent:"center", alignItems:"center",
+              borderWidth: 2, borderColor:"#00A0E8"}}
+            fab={true}
+            onPress={() => {
+              if(rowData.state === 0){
                 this.props.onCompleteQuest(rowData.id);
               } else {
                 this.props.onCancelCompleteQuest(rowData.id);
               }
             }}
-            onPress={()=>{}}
-            style={{width: 30,height: 30, borderWidth: 2, borderRadius:100, margin:15,}}
             >
-            <View
-              state_checked={false}
-              pointerEvents="none"
-              >
-              <Icon
-                name='material|minus'
-                size={30}
-                color='#01BAD2'
-                style={{width: 30, height: 30}}
-                />
-            </View>
-            <View
-              state_checked={true}
-              pointerEvents="none"
-              >
-              <Icon
-                name='material|check'
-                size={30}
-                color='#01BAD2'
-                style={{width: 30, height: 30}}
-                />
-            </View>
-          </MKIconToggle>
+            <Icon
+              name={"material|"+ (rowData.state === 0 ? "pause":"check")}
+              size={(rowData.state === 0 ? 20 : 30)}
+              color='#00A0E8'
+              style={{width: 30, height: 30, borderRadius:15}}/>
+          </MKButton>
+
           <Text numberOfLines={1} style={{fontSize: 20,flex:1}}>
             {rowData.text}
           </Text>

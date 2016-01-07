@@ -19,6 +19,7 @@
     "eslint-plugin-react": "^3.2.2",
     "react-native": "^0.17.0",
     "react-native-drawer": "^1.4.2",
+    "react-native-dropdown": "0.0.6",
     "react-native-icons": "^0.7.0",
     "react-native-item-checkbox": "^1.0.0",
     "react-native-material-kit": "^0.2.4",

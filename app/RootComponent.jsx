@@ -38,7 +38,7 @@ const RootComponent = React.createClass({
     };
     return (
       <Navigator
-        ref={nav => global.nav = nav}
+        ref={navigator => global.navigator = navigator}
         style={{paddingLeft: 0, paddingRight: 0}}
         initialRoute={initialRoute}
         configureScene={() => {
@@ -71,7 +71,7 @@ const RootComponent = React.createClass({
           ref={drawer => global.drawer = drawer}
           type="overlay"
           content={
-            <LeftNavComponent navigator={global.nav}/>
+            <LeftNavComponent navigator={global.navigator}/>
           }
           tapToClose={true}
           openDrawerOffset={0.2}
